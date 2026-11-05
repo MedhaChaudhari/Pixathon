@@ -1,0 +1,248 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * The Infinite Stairwell — brutalist concrete design system.
+ * Raw concrete greys, hazard-yellow stencil, emergency green, alarm red.
+ * All colors MUST use oklch format.
+ */
+
+@theme inline {
+  --font-stencil: "Saira Stencil One", "Impact", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "IBM Plex Mono", ui-monospace, monospace;
+  --font-marker: "Permanent Marker", cursive;
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 2px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-daylight: var(--daylight);
+  --color-daylight-foreground: var(--daylight-foreground);
+  --color-void: var(--scene-void);
+}
+
+:root {
+  --radius: 0.125rem;
+  --background: oklch(0.16 0.004 80);
+  --foreground: oklch(0.9 0.01 85);
+  --card: oklch(0.2 0.004 80);
+  --card-foreground: oklch(0.9 0.01 85);
+  --popover: oklch(0.2 0.004 80);
+  --popover-foreground: oklch(0.9 0.01 85);
+  --primary: oklch(0.85 0.17 92);
+  --primary-foreground: oklch(0.15 0.01 80);
+  --secondary: oklch(0.26 0.005 80);
+  --secondary-foreground: oklch(0.9 0.01 85);
+  --muted: oklch(0.23 0.004 80);
+  --muted-foreground: oklch(0.64 0.01 85);
+  --accent: oklch(0.72 0.17 150);
+  --accent-foreground: oklch(0.14 0.02 150);
+  --destructive: oklch(0.6 0.22 27);
+  --destructive-foreground: oklch(0.97 0.01 85);
+  --border: oklch(0.33 0.005 80);
+  --input: oklch(0.33 0.005 80);
+  --ring: oklch(0.85 0.17 92);
+  --daylight: oklch(0.97 0.03 90);
+  --daylight-foreground: oklch(0.18 0.01 80);
+
+  /* Scene palette (the stairwell renderer) */
+  --scene-void: oklch(0.07 0.004 80);
+  --scene-concrete: oklch(0.6 0.008 80);
+  --scene-concrete-far: oklch(0.56 0.008 80);
+  --scene-ceiling: oklch(0.42 0.006 80);
+  --scene-paint: oklch(0.44 0.03 170);
+  --scene-tread: oklch(0.55 0.006 80);
+  --scene-hazard: oklch(0.82 0.16 92);
+  --scene-door: oklch(0.42 0.05 160);
+  --scene-door-edge: oklch(0.3 0.04 160);
+  --scene-frame: oklch(0.32 0.01 80);
+  --scene-steel: oklch(0.78 0.01 80);
+  --scene-exit: oklch(0.62 0.19 150);
+  --scene-exit-foreground: oklch(0.97 0.02 150);
+  --scene-light: oklch(0.96 0.08 90);
+  --scene-alarm: oklch(0.58 0.24 27);
+  --scene-graffiti: oklch(0.55 0.21 25);
+  --scene-brick: oklch(0.48 0.12 40);
+  --scene-mortar: oklch(0.68 0.02 80);
+  --scene-room: oklch(0.2 0.01 80);
+  --scene-fluoro: oklch(0.95 0.03 200);
+
+  --gradient-vignette: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    color-mix(in oklab, var(--scene-void) 85%, transparent) 100%
+  );
+  --gradient-hero: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--background) 30%, transparent) 0%,
+    color-mix(in oklab, var(--background) 70%, transparent) 55%,
+    var(--background) 100%
+  );
+  --gradient-hazard: repeating-linear-gradient(
+    -45deg,
+    var(--primary) 0 14px,
+    var(--primary-foreground) 14px 28px
+  );
+  --shadow-sign: 0 0 0 1px var(--border), 0 20px 50px -20px var(--scene-void);
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-mono);
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: var(--grain);
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+  }
+}
+
+@utility vignette {
+  background: var(--gradient-vignette);
+}
+
+@utility hazard-tape {
+  background: var(--gradient-hazard);
+}
+
+@utility text-stencil {
+  font-family: var(--font-stencil);
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  41% { opacity: 1; }
+  42% { opacity: 0.55; }
+  43% { opacity: 1; }
+  77% { opacity: 0.95; }
+  78% { opacity: 0.6; }
+  79% { opacity: 0.95; }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@utility animate-flicker {
+  animation: flicker 5.3s infinite steps(1, end);
+}
+
+@utility animate-drift {
+  animation: drift 3.2s ease-in-out infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  &[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility hero-parallax {
+  transform: scale(1.12)
+    translate(calc(var(--mx, 0) * -24px), calc(var(--my, 0) * -16px + var(--scroll, 0) * 0.15px));
+  transition: transform 0.4s ease-out;
+  will-change: transform;
+}
+
+@keyframes hazard-slide {
+  to { background-position: 40px 0; }
+}
+
+@utility hazard-move {
+  background-size: 40px 40px;
+  animation: hazard-slide 1.6s linear infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 50%, transparent); }
+  50% { box-shadow: 0 0 0 10px color-mix(in oklab, var(--primary) 0%, transparent); }
+}
+
+@utility hazard-glow {
+  animation: glow-pulse 2.4s ease-in-out infinite;
+}
+
+@utility link-underline {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.3s ease, color 0.2s;
+  &:hover {
+    background-size: 100% 1px;
+  }
+}
+
+@keyframes glitch-shift {
+  0%, 100% { text-shadow: none; transform: none; }
+  20% { text-shadow: 3px 0 var(--destructive), -3px 0 var(--accent); transform: translateX(-2px); }
+  40% { text-shadow: -3px 0 var(--destructive), 3px 0 var(--accent); transform: translateX(2px); }
+  60% { text-shadow: 2px 0 var(--destructive), -2px 0 var(--accent); }
+}
+
+@utility glitch {
+  cursor: default;
+  &:hover {
+    animation: glitch-shift 0.45s steps(2, end) 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .hero-parallax, .hazard-move, .hazard-glow { animation: none; transform: scale(1.05); }
+}
